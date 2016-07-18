@@ -1,0 +1,12 @@
+---
+
+- name: mark current host status
+  mongo:
+    host: "{{ mongo_host }}"
+    user: "{{ mongo_user }}"
+    password: "{{ mongo_pass }}"
+    port: "{{ mongo_port }}"
+    query: '{"hostname":"{{ ansible_nodename }}"}'
+    update: "{{ cmd }}"
+    action: update
+    collection: rhevms

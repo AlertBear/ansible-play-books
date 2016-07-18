@@ -1,0 +1,9 @@
+# master playbook
+
+---
+
+- name: Master Play Book
+  hosts: bad
+
+  roles:
+    - common/unregister_rhn_sm

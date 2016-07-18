@@ -1,0 +1,18 @@
+{% if rhevm35_version %}
+[rhev-{{ rhevm35_version }}]
+name=RHEV {{ rhevm35_version }}
+baseurl=http://10.66.10.22:8090/rhevm/3.5/{{ rhevm35_version }}/el6/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+{% endif %}
+
+
+{% if rhevm36_version %}
+[rhev-{{ rhevm36_version }}]
+name=RHEV {{ rhevm36_version }}
+baseurl=http://10.66.10.22:8090/rhevm/3.6/{{ rhevm36_version }}/el6/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+{% endif %}

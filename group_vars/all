@@ -1,0 +1,13 @@
+# ------------------ MongoDB ---------------------------------------------------
+
+mongo_host: 10.66.10.22
+mongo_port: 27017
+mongo_user: meteor
+mongo_pass: redhat
+
+
+# ------------------ RHEVM DEP REPO --------------------------------------------
+
+jboss64z: "http://10.66.10.22:8090/JBEAP-6.4-RHEL-6/"
+
+rhevm40rpm: "http://bob.eng.lab.tlv.redhat.com/builds/latest_4.0/rhev-release-latest-4.0.noarch.rpm"

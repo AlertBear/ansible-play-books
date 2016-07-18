@@ -1,0 +1,11 @@
+---
+
+- name: Copy rhevm source repo to host
+  template: src=rhevm3x.j2 dest=/etc/yum.repos.d/rhevm3x.repo
+  tags: 
+    - rhevm3xup
+
+- name: Copy jboss source repo to host
+  template: src=jboss64z.j2 dest=/etc/yum.repos.d/jboss64z.repo
+  tags: 
+    - rhevm3xup

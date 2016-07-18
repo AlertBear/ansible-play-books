@@ -1,0 +1,6 @@
+---
+
+- name: Fetch rhevm40 installer rpm
+  get_url: url="{{ rhevm40rpm }}" dest=/tmp
+  tags:
+    - rhevm4xup

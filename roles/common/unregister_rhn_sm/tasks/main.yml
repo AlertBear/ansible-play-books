@@ -1,0 +1,8 @@
+---
+
+- name: unregister from RHN
+  rhn_register: state=absent
+  
+- name: unregister from SM
+  redhat_subscription: state=absent
+

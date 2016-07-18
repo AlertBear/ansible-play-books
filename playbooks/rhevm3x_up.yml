@@ -1,0 +1,10 @@
+---
+- name: Upgrade rhevm to lastest version
+  hosts: bad
+
+  roles:
+    - { role: roles/rhevm_upgrade/mark_host_status, cmd: '{"$set":{"status":"upgrading"}}' }
+    - roles/common/unregister_rhn_sm
+    - roles/rhevm_upgrade/pre
+    - roles/rhevm_upgrade/rhevm3x
+    - { role: roles/rhevm_upgrade/mark_host_status, cmd: '{"$set":{"status":"running"}}' }
