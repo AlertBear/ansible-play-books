@@ -1,6 +1,27 @@
 ---
 
 - name: Fetch rhevm40 installer rpm
-  get_url: url="{{ rhevm40rpm }}" dest=/tmp
+  get_url: url="{{ rhevm40rpm }}" dest=/tmp/rhevm40.rpm
+  tags:
+    - rhevm4xup
+
+- name: Install the downloaded rpm
+  command: rpm -ivh --force /tmp/rhevm40.rpm
+  tags:
+    - rhevm4xup
+
+- name: get repo file path
+  shell: rpm -qpl /tmp/rhevm40.rpm | grep -v release | grep -v dependencies
+  register: rhevm40_repo
+  tags:
+    - rhevm4xup
+
+- name: fix a possbilbe bug in repo file
+  lineinfile: dest="{{ rhevm40_repo.stdout }}" regexp='^(.*)\$releasever$' line='\g<1>7Server' backrefs=yes
+  tags:
+    - rhevm4xup
+
+- name: Copy answerbot to node
+  copy: src=bin/answerbot dest=/tmp/answerbot  mode=0755
   tags:
     - rhevm4xup
