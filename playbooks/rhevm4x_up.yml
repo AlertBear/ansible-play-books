@@ -1,6 +1,6 @@
 ---
 - name: Upgrade rhevm to lastest version
-  hosts: bad40
+  hosts: rhevm40
 
   roles:
     - { role: roles/rhevm_upgrade/mark_host_status, cmd: '{"$set":{"status":"upgrading"}}' }

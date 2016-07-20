@@ -25,3 +25,23 @@
   copy: src=bin/answerbot dest=/tmp/answerbot  mode=0755
   tags:
     - rhevm4xup
+
+- name: Run engine-cleanup job
+  command: /tmp/answerbot -e
+  tags:
+    - rhevm4xup 
+
+- name: Remove the old rhevm package
+  yum: name=rhevm state=absent
+  tags:
+    - rhevm4xup
+
+- name: Install the new rhevm package
+  yum: name=rhevm state=latest
+  tags:
+    - rhevm4xup
+
+- name: Run engine-setup job
+  command: /tmp/answerbot -i
+  tags:
+    - rhevm4xup
