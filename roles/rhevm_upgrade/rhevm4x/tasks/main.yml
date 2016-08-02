@@ -1,14 +1,16 @@
 ---
 
 - name: Fetch rhevm40 installer rpm
-  get_url: url="{{ rhevm40rpm }}" dest=/tmp/rhevm40.rpm
+  get_url: url="{{ rhevm40rpm }}" dest=/tmp/rhevm40.rpm force=yes
   tags:
     - rhevm4xup
+    - fetch_latest_rpm
 
 - name: Install the downloaded rpm
   command: rpm -ivh --force /tmp/rhevm40.rpm
   tags:
     - rhevm4xup
+    - fetch_latest_rpm
 
 - name: get repo file path
   shell: rpm -qpl /tmp/rhevm40.rpm | grep -v release | grep -v dependencies
@@ -38,6 +40,11 @@
 
 - name: Install the new rhevm package
   yum: name=rhevm state=latest
+  tags:
+    - rhevm4xup
+
+- name: Update ovirt-engine-dwh-setup package
+  yum: name=ovirt-engine-dwh-setup state=latest
   tags:
     - rhevm4xup
 

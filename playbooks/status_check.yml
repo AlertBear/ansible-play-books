@@ -1,10 +1,6 @@
 ---
 - name: check all nodes that listed in inventory file
-  hosts: 
-    - rhevm35
-    - rhevm36
-    - rhevm40
-    - bad
+  hosts: all
   tasks:
     - name: print ip address of each nodes
       ping:
