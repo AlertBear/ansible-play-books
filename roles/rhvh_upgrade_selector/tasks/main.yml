@@ -1,0 +1,4 @@
+---
+
+- name: change the soft link to the given rhvh update rpm
+  script: scripts/miner.sh {{ version }}
