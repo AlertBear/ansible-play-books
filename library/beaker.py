@@ -15,7 +15,7 @@ class Beaker:
         self.module = module
         self.bkr_name = module.params['bkr_name']
 
-    def _exec_cmd(self, cmd, args, output=False):
+    def _exec_cmd(self, cmd, args, output=True):
         _cmd = self.CMDs[cmd].format(**args)
         if not output:
             ret = subprocess.call(_cmd, shell=True)
