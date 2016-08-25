@@ -1,0 +1,6 @@
+---
+
+- name: reboot the machine via beaker power management
+  beaker:
+    action: reboot
+    bkr_name: "{{bkr_name}}"

@@ -1,0 +1,7 @@
+---
+
+- name: copy repo file that point the local upgrade repo
+  template: src=rhvh.j2 dest=/etc/yum.repos.d/rhvh.repo
+
+- name: start upgrading
+  yum: name=* state=latest

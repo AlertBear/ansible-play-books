@@ -1,0 +1,35 @@
+#
+# Certificate-Based Repositories
+# Managed by (rhsm) subscription-manager
+#
+# *** This file is auto-generated.  Changes made here will be over-written. ***
+# *** Use "subscription-manager repo-override --help" if you wish to make changes. ***
+#
+# If this file is empty and this system is subscribed consider 
+# a "yum repolist" to refresh available repos
+#
+
+[rhel-7-server-rhvh-4-source-rpms]
+name=rhel-7-server-rhvh-4-source-rpms
+baseurl = http://10.66.10.22:8090/rhvhupgrade/rhvh/4/source/SRPMS
+skip_if_unavailable=1
+gpgcheck=0
+enabled = 1
+
+
+[rhel-7-server-rhvh-4-beta-debug-rpms]
+name=rhel-7-server-rhvh-4-beta-debug-rpms
+baseurl = http://10.66.10.22:8090/rhvhupgrade/rhvh/4/debug
+enabled = 1
+gpgcheck = 0
+
+
+
+
+
+[rhel-7-server-rhvh-4-rpms]
+baseurl = http://10.66.10.22:8090/rhvhupgrade/rhvh/4/os/Packages/
+name = Red Hat Virtualization Host 7 (RPMs)
+enabled = 1
+gpgcheck = 0
+

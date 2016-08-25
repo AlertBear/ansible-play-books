@@ -1,0 +1,12 @@
+---
+
+- name: enable pxe-boot for given system on beaker with given profile
+  cobbler:
+    pxe: "{{pxe}}"
+    bkr_name: "{{bkr_name}}"
+    cb_profile_name: "{{cb_profile_name}}"
+    cb_api_url: "{{cb_api_url}}"
+    cb_user: "{{cb_user}}"
+    cb_pass: "{{cb_pass}}"
+    ks_url: "{{ks_url}}"
+    stage2_url: "{{stage2_url}}"

@@ -11,3 +11,16 @@ mongo_pass: redhat
 jboss64z: "http://10.66.10.22:8090/JBEAP-6.4-RHEL-6/"
 
 rhevm40rpm: "http://bob.eng.lab.tlv.redhat.com/builds/latest_4.0/rhev-release-latest-4.0.noarch.rpm"
+
+
+# ------------------ Cobbler ---------------------------------------------------
+
+cb_api_url: "http://10.73.60.74/cobbler_api"
+
+cb_user: cobbler
+cb_pass: cobbler
+
+cb_profile_name: "RHVH-72-0718.1"
+
+ks_url: "http://10.66.10.22:8090/rhevh/ngn/latest/ngn.ks"
+stage2_url: "http://10.66.10.22:8090/rhevh/ngn-dvd-iso/RHVH-7.2-20160718.1/stage2"

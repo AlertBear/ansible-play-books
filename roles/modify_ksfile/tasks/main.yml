@@ -1,0 +1,4 @@
+---
+
+- name: modify kickstart file to disable pxeboot
+  template: src=ngn.j2 dest=/var/www/builds/rhevh/ngn/latest/ngn.ks

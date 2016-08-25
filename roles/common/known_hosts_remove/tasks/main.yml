@@ -1,0 +1,4 @@
+---
+
+- name: remove the specific host from known_hosts list
+  local_action: known_hosts name="{{ansible_host}}" state=absent

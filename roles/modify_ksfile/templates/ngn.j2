@@ -1,0 +1,24 @@
+
+liveimg --url=http://10.66.10.22:8090/rhevh/rhevh7-ng-36/redhat-virtualization-host-4.0-20160803.3/redhat-virtualization-host-4.0-20160803.3.x86_64.liveimg.squashfs
+
+clearpart --all
+
+autopart --type=thinp
+
+rootpw --plaintext redhat
+
+timezone --utc Asia/Harbin
+
+zerombr
+
+text
+
+reboot
+
+%post
+curl http://10.73.60.74/cblr/svc/op/nopxe/system/{{bkr_name}}
+%end
+
+%post --erroronfail
+imgbase layout --init
+%end
