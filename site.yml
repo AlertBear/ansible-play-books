@@ -1,9 +1,80 @@
-# master playbook
-
 ---
 
-- name: Master Play Book
-  hosts: bad
+- name: modify ksfile to prevent reboot loop
+  hosts: server1022
+  gather_facts: no
 
   roles:
-    - common/unregister_rhn_sm
+    - roles/modify_ksfile
+
+- name: auto provison an old rhvh
+  hosts: localhost
+  gather_facts: no
+
+  roles:
+    - roles/common/enable_pxe
+    - roles/common/beaker
+
+- name: remove the host from known_hosts list to prevent ssh connection error
+  hosts: ngn_upgrade
+  gather_facts: no
+
+  roles:
+    - roles/common/known_hosts_remove
+
+
+- name: wait for node reachable
+  hosts: ngn_upgrade
+  gather_facts: no
+
+  tasks: 
+    - local_action: wait_for host="{{ ansible_host }}"
+                             port=22
+                             state=started
+                             timeout=1200
+                             delay=60
+
+- name: upgrade rhvh to specific version
+  hosts: ngn_upgrade
+  gather_facts: yes
+  
+  roles:
+    - roles/upgrade_rhvh
+
+- name: reboot after upgrading
+  hosts: ngn_upgrade
+
+  tasks:
+    - shell: sleep 2 && reboot
+      async: 1
+      poll: 0
+      ignore_errors: true
+
+
+- name: wait for node reboot
+  hosts: ngn_upgrade
+  gather_facts: no
+
+  tasks: 
+    - local_action: wait_for host="{{ ansible_host }}"
+                             port=22
+                             state=started
+                             timeout=1200
+                             delay=60
+
+- name: perform check after upgrade
+  hosts: ngn_upgrade
+  gather_facts: yes
+
+  tasks:
+    - name: check output of `imgbase w`
+      shell: imgbase w
+
+    - name: check output of `imgbase layout`
+      shell: imgbase layout
+
+    - name: check version of imgbase
+      shell: rpm -qa | grep imgbase
+
+    - name: check version of update
+      shell: rpm -qa | grep update
