@@ -1,6 +1,6 @@
 ---
 - name: check all nodes that listed in inventory file
-  hosts: all
+  hosts: server1022
   
   roles:
     - roles/rhvh_upgrade_selector
