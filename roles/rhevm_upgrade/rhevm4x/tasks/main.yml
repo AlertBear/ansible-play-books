@@ -30,6 +30,7 @@
 
 - name: Run engine-cleanup job
   command: /tmp/answerbot -e
+  ignore_errors: True
   tags:
     - rhevm4xup 
 
