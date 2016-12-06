@@ -24,7 +24,7 @@
     - rhevm4xup
 
 - name: Copy answerbot to node
-  copy: src=./bin/answerbot dest=/tmp/answerbot  mode=0755
+  copy: src="{{ role_path }}/bin/answerbot" dest=/tmp/answerbot  mode=0755
   tags:
     - rhevm4xup
 
