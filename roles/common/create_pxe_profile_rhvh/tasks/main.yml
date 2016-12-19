@@ -1,0 +1,7 @@
+---
+
+- name: create pxe profile for rhvh, pre stage
+  script: "{{ role_path }}/scripts/createrhvh40pxe.py pre {{ rhvh_iso_name }}"
+
+- name: create pxe profile for rhvh, normal stage
+  shell: "{{ role_path }}/scripts/createrhvh40pxe.py pxe {{ rhvh_iso_name }} {{ pxe_profile_name }}"

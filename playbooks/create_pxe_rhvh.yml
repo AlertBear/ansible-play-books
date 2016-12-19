@@ -1,0 +1,6 @@
+---
+- name: create rhvh pxe profile
+  hosts: server1022
+  
+  roles:
+    - roles/common/create_pxe_profile_rhvh
