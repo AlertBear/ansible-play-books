@@ -5,3 +5,5 @@
 
 - name: create pxe profile for rhvh, normal stage
   script: "{{ role_path }}/scripts/createrhvh40pxe.py pxe {{ rhvh_iso_name }} {{ pxe_profile_name }}"
+  become: true
+  become_user: dracher
