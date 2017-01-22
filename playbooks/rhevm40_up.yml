@@ -6,5 +6,5 @@
     - { role: roles/rhevm_upgrade/mark_host_status, cmd: '{"$set":{"status":"upgrading"}}' }
     - roles/common/unregister_rhn_sm
     - roles/rhevm_upgrade/pre
-    - roles/rhevm_upgrade/rhevm4x
+    - roles/rhevm_upgrade/rhevm40
     - { role: roles/rhevm_upgrade/mark_host_status, cmd: '{"$set":{"status":"running"}}' }
