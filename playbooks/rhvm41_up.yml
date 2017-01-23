@@ -8,3 +8,24 @@
     - roles/common/unregister_rhn_sm
     - roles/rhevm_upgrade/rhvm41
     - { role: roles/rhevm_upgrade/mark_host_status, cmd: '{"$set":{"status":"running"}}' }
+
+- name: Update rhvm package version in database
+  hosts: rhvm41
+  gather_facts: no
+
+  tasks:
+    - name: Get the rhvm package version on hosts
+      shell: ver=$(rpm -qa|grep "^rhevm-[0-9].*")
+      shell: echo $ver
+      register: pkg_ver
+
+    - name: Get the rhvm version
+      shell: tmp=$(echo ${ver#rhevm-})
+      shell: echo ${tmp%.noarch}
+      register: rhvm_ver
+- name: Update the rhvm package version in database
+  hosts: rhvm41
+
+  roles:
+    - { role: roles/rhevm_upgrade/mark_host_status, cmd: '{"$set":{"package version":"{{ pkg_ver }}"}}' }
+    - { role: roles/rhevm_upgrade/mark_host_status, cmd: '{"$set":{"rhevm version":"{{ rhevm_ver }}"}}' }
