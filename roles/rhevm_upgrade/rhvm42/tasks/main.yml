@@ -1,0 +1,55 @@
+---
+
+- name: Fetch rhvm42 installer rpm
+  get_url: url="{{ rhvm42rpm }}" dest=/tmp/rhvm42.rpm force=yes
+  tags:
+    - rhvm42up
+    - fetch_latest_rpm
+
+- name: Install the downloaded rpm
+  command: rpm -ivh --force /tmp/rhvm42.rpm
+  tags:
+    - rhvm42up
+    - fetch_latest_rpm
+
+- name: get repo file path
+  shell: rpm -qpl /tmp/rhvm42.rpm | grep -v release | grep -v dependencies
+  register: rhvm42_repo
+  tags:
+    - rhvm42up
+
+- name: fix a possbilbe bug in repo file
+  lineinfile: dest="{{ rhvm42_repo.stdout }}" regexp='^(.*)\$releasever$' line='\g<1>7Server' backrefs=yes
+  tags:
+    - rhvm42up
+
+- name: Copy answerbot to node
+  copy: src="{{ role_path }}/bin/answerbot" dest=/tmp/answerbot  mode=0755
+  tags:
+    - rhvm42up
+
+- name: Run engine-cleanup job
+  command: /tmp/answerbot -e
+  ignore_errors: True
+  tags:
+    - rhvm42up 
+
+- name: Remove the old rhevm package
+  yum: name=rhvm state=absent
+  tags:
+    - rhvm42up
+
+- name: Install the new rhevm package
+  yum: name=rhvm state=latest
+  tags:
+    - rhvm42up
+
+- name: Update ovirt-engine-dwh-setup package
+  yum: name=ovirt-engine-dwh-setup state=latest
+  tags:
+    - rhvm42up
+
+- name: Run engine-setup job
+  command: /tmp/answerbot -i
+  tags:
+    - rhvm42up

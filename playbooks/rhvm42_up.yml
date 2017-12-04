@@ -1,0 +1,28 @@
+---
+- name: Upgrade rhvm to lastest version
+  hosts: rhvm42
+
+  roles:
+    - roles/rhevm_upgrade/pre
+    - { role: roles/rhevm_upgrade/mark_host_status, cmd: '{"$set":{"status":"upgrading"}}' }
+    - roles/common/unregister_rhn_sm
+    - roles/rhevm_upgrade/rhvm42
+    - { role: roles/rhevm_upgrade/mark_host_status, cmd: '{"$set":{"status":"running"}}' }
+
+- name: Update rhvm package version in database
+  hosts: rhvm42
+
+  tasks:
+    - name: Get the rhvm package version on hosts
+      shell: rpm -qa|grep "^rhvm-[0-9].*"
+      register: result 
+
+- name: Update the rhvm package version in database
+  hosts: rhvm42
+  vars:
+    pkg_ver: "{{ result.stdout.split('.noarch')[0] }}"
+    rhevm_ver: "{{ result.stdout.split('rhevm-')[1].split('.noarch')[0] }}"
+
+  roles:
+    - { role: roles/rhevm_upgrade/mark_host_status, cmd: '{"$set":{"package_version":"{{ pkg_ver }}"}}' }
+    - { role: roles/rhevm_upgrade/mark_host_status, cmd: '{"$set":{"rhevm_version":"{{ rhevm_ver }}"}}' }
